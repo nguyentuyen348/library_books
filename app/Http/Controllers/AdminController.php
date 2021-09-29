@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller implements BaseInterface
+class AdminController extends Controller implements BaseInterface
 {
     function index() {
-        return view('layouts.dashboard');
+
+        return view('pages.dashboard');
     }
 
     function create()

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 
 class UserController extends Controller implements BaseInterface, UserInterface
@@ -18,8 +21,9 @@ class UserController extends Controller implements BaseInterface, UserInterface
 
     function index()
     {
+        $roles=Role::all();
         $users = User::all();
-        return view('users.list', compact('users'));
+        return view('backends.admin.users.list', compact('users','roles'));
 
     }
 
@@ -35,42 +39,61 @@ class UserController extends Controller implements BaseInterface, UserInterface
 
     function create()
     {
-        return \view('users.add');
-    }
-
-    function delete($id)
-    {
-        // TODO: Implement delete() method.
+        return \view('backends.admin.users.add');
     }
 
     function getPostOfUser($idUser)
     {
-        // TODO: Implement getPostOfUser() method.
+
     }
 
     function store(CreateUserRequest $request)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
+        DB::beginTransaction();
+        try {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+            $user->roles()->sync($request->role);
+            DB::commit();
+        }catch (\Exception $exception) {
+            DB::rollBack();
+        }
         return redirect()->route('users.index');
 
     }
 
     function update($id)
     {
+        $roles=Role::all();
         $user = User::findOrFail($id);
-        return \view('users.update', compact('user'));
+        return \view('backends.admin.users.update', compact('user','roles'));
     }
 
     function edit(Request $request, $id)
     {
+        DB::beginTransaction();
+        try {
+            $user = User::findOrFail($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();
+            $user->roles()->sync($request->role);
+            DB::commit();
+        }catch (\Exception $exception) {
+            DB::rollBack();
+        }
+
+        return redirect()->route('users.index');
+    }
+
+    function delete($id)
+    {
         $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
+        $user->roles()->detach();
+        $user->delete();
         return redirect()->route('users.index');
     }
 }

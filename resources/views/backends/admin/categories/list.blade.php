@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Danh sách người dùng')
+@section('title','list category')
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Danh sách người dùng</li>
+                        <li class="breadcrumb-item active">Danh sách các chủ đề </li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <a class="btn btn-success" href="{{ route('users.create') }}">Thêm mới</a>
+                                <a class="btn btn-success" href="{{ route('categories.create') }}">Thêm mới</a>
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -36,19 +36,17 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên</th>
-                                    <th>Email</th>
                                     <th></th>
 
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($users as $key => $user)
+                                @foreach($categories as $category)
                                     <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->name }}</td>
                                         <td>
-                                            <a href="{{ route('users.update', ['id' => $user->id]) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                            <a href="{{route('categories.edit',$category->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                             <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -58,7 +56,6 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên</th>
-                                    <th>Email</th>
                                     <th></th>
                                 </tr>
                                 </tfoot>
@@ -75,4 +72,6 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
 @endsection
+

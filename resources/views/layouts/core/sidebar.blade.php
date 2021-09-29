@@ -1,6 +1,11 @@
+<style>
+    .dropdown-item{
+        color: black!important;
+    }
+</style>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('home.index') }}" class="brand-link">
+    <a href="{{ route('admin.index') }}" class="brand-link">
         <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -8,12 +13,27 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="margin: 16px 0 0 0!important;">
             <div class="image">
                 <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                @if(auth()->user())
+                <a href="#" class="d-block">{{auth()->user()->name}}</a>
+                @endif
+            </div>
+
+        </div>
+        <div>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{route('login')}}">Login</a>
+                    <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
+                    <a class="dropdown-item" href="{{route('pages.register')}}">Register</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Profile</a>
+                </div>
             </div>
         </div>
 
@@ -63,7 +83,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
                             Quản lý sách
@@ -72,9 +92,27 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{route('books.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh sách sách</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <p>
+                            Quản lý tác giả
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('authors.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách tác giả</p>
                             </a>
                         </li>
 
@@ -90,7 +128,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/UI/general.html" class="nav-link">
+                            <a href="{{route('categories.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh sách thể loại sách</p>
                             </a>

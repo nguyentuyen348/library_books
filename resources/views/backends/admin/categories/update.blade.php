@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Chỉnh sửa thông tin người dùng')
+@section('title','update category')
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -24,7 +24,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Chỉnh sửa thông tin người dùng</h3>
+                            <h3 class="card-title">Chỉnh sửa thông tin thể loại sách</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -32,13 +32,8 @@
                                 @csrf
                                 <div class="form-group">
                                     <lable>Tên</lable>
-                                    <input type="text" value="{{ $user->name }}" class="form-control" name="name">
+                                    <input type="text" value="{{ $category->name }}" class="form-control" name="name">
                                 </div>
-                                <div class="form-group">
-                                    <lable>Email</lable>
-                                    <input type="email" value="{{ $user->email }}" class="form-control" name="email">
-                                </div>
-
                                 <button type="submit" class="btn btn-primary">Lưu</button>
                             </form>
                         </div>
@@ -53,4 +48,5 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
 @endsection

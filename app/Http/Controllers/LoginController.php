@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\LoginService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class LoginController extends Controller
 {
@@ -16,11 +18,30 @@ class LoginController extends Controller
 
     function showFormLogin()
     {
-        return view('login');
+        return view('pages.login');
     }
 
     function login(Request $request)
     {
-        $this->loginService->checkLogin($request);
+
+        if ($this->loginService->checkLogin($request)) {
+            if (Gate::allows('admin')){
+                return redirect()->route('admin.index');
+            }
+            return redirect()->route('index');
+        }
+        session()->flash('error','login error');
+        return back();
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        session()->flash('logout','logged out');
+        return redirect()->route('home.index');
     }
 }
