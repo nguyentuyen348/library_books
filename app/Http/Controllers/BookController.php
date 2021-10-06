@@ -5,17 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Detail_book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
 
     public function index()
     {
+        $detail_books=Detail_book::all();
         $categories=Category::all();
         $authors=Author::all();
         $books=Book::all();
-        return view('backends.admin.books.list',compact('books','categories','authors'));
+
+        return view('backends.admin.books.list',compact('categories','authors','detail_books','books'));
     }
 
 
@@ -27,7 +31,7 @@ class BookController extends Controller
     }
 
 
-    public function store(Request $request, Book $book)
+    public function store(Request $request, Book $book,Detail_book $detail_book)
     {
 
         if ($request->hasFile('image')){
@@ -40,7 +44,8 @@ class BookController extends Controller
         $book->author_id=$request->author_id;
         $book->category_id=$request->category_id;
         $book->save();
-
+        $detail_book->id=$book->id;
+        $detail_book->save();
         return redirect()->route('books.index');
     }
 

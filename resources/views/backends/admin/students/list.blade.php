@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','list books')
+@section('title','Danh sách sinh viên')
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Danh sách sách</li>
+                        <li class="breadcrumb-item active">Danh sách sinh viên</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <a class="btn btn-success" href="{{ route('books.create') }}">Thêm mới</a>
+                                <a class="btn btn-success" href="{{ route('students.create') }}">Thêm mới</a>
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -36,48 +36,34 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên</th>
-                                    <th>Ảnh</th>
-                                    <th>Tác giả</th>
-                                    <th>Thể loại</th>
-                                    <th>Giá</th>
-                                    <th>Lượt xem</th>
+                                    <th>Avatar</th>
+                                    <th>Mã sinh viên</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
                                     <th></th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($books as $book)
-
+                                @foreach($students as $key => $student)
                                     <tr>
-                                        <td>{{ $book->id }}</td>
-                                        <td>{{ $book->name }}</td>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $student->name }}</td>
                                         <td>
-                                            <img style="width: 100px;height: 100px" src="{{asset('storage/'.$book->image)}}" alt="{{asset('storage/'.$book->image)}}">
+                                            <img style="width: 100px;height: 100px" src="{{asset('storage/'.$student->avatar)}}" alt="{{asset('storage/'.$student->avatar)}}">
                                         </td>
-
+                                        <td>{{ $student->student_code }}</td>
+                                        <td>{{ $student->email }}</td>
+                                        <td>{{ $student->phone }}</td>
+                                        <td>{{ $student->address }}</td>
                                         <td>
-                                            @if(isset($book->author))
-                                            {{$book->author->name}}
-                                            @endif
-                                        </td>
-
-                                        <td>
-                                            @if(isset($book->category))
-                                                {{$book->category->name}}
-                                            @endif
-                                        </td>
-                                        <td>{{$book->price}}</td>
-                                        <td>{{$book->view}}</td>
-                                        <td>
-
-                                            <a href="{{route('books.edit',$book->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                            <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                            <a class="btn btn-success" href="{{route('books.detail',$book->id  )}}">detail</a>
-
+                                            <a href="{{route('students.edit',$student->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                            <a href="{{route('students.delete',$student->id)}}" onclick="return confirm('are you sure?')" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
-                                </tbody>
                                 @endforeach
-
+                                </tbody>
                                 <tfoot>
                                 <tr>
 
@@ -96,5 +82,4 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
 @endsection

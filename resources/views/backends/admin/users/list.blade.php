@@ -29,6 +29,10 @@
                                 <a class="btn btn-success" href="{{ route('users.create') }}">Thêm mới</a>
                             </h3>
                         </div>
+                        <div class="col-12 col-md-10">
+                            <input type="text" class="form-control " id="search-user">
+                            <ul id="list-user-search list-group-item-action" class="list-group"></ul>
+                        </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
@@ -44,7 +48,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($users as $key => $user)
-                                    <tr>
+                                    <tr class="user-item" id="user-{{$user->id}}">
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
@@ -59,7 +63,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('users.update', ['id' => $user->id]) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                            <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            <button data-id="{{$user->id}}" class="btn btn-danger delete-user"><i class="fas fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach

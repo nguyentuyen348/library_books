@@ -8,13 +8,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{asset('css/mycss.css')}}">
-    <script src="{{asset('js/myjs.js')}}"></script>
+    <script src="{{asset('js/my.js')}}"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <style>
         .mySlides {display:none}
         .w3-left, .w3-right, .w3-badge {cursor:pointer}
@@ -112,13 +113,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" style="color: orangered" href="{{route('home.index')}}">Liberty Shop</a>
+            <a class="navbar-brand" style="color: orangered" href="{{route('index')}}">Library Happy</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
 
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Deals</a></li>
+                <li><a href="#">Books</a></li>
+                <li><a href="#">Authors</a></li>
                 <li><a href="#">Stores</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
@@ -150,7 +151,13 @@
                         </ul>
                     </div>
                 </li>
-                <li><a href=""><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                <li>
+
+                    <a href="{{route('cart.detail')}}"><span class="glyphicon glyphicon-shopping-cart"></span> Giỏ <span style="color: wheat">({{count((array)session('cart'))}})</span></a>
+
+
+
+                </li>
             </ul>
         </div>
     </div>
@@ -163,8 +170,8 @@
             <!-- innermost wrapper element -->
             <img src="{{asset('storage/images/header.jpg')}}" alt="First" class="slide" style="width:100%" />
             <!-- slides -->
-            <img src="{{asset('storage/images/header.jpg')}}" alt="Second" class="slide" style="width:100%" />
-            <img src="{{asset('storage/images/header.jpg')}}" alt="Third" class="slide" style="width:100%" />
+            <img src="https://la.com.vn/wp-content/uploads/2018/08/25.jpg" alt="Second" class="slide" style="width:100%" />
+            <img src="https://adelstonmedia.com/wp-content/uploads/2019/05/Slider-Book2.jpg" alt="Third" class="slide" style="width:100%" />
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
@@ -195,9 +202,10 @@
 
                 <div style="display: flex;">
                     <div>
-                        <form class="d-flex" method="get" action="">
+                        <form class="d-flex" method="get" action="{{route('book.search')}}">
                             <div style="display: flex">
-                                <div><input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                                <div>
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                                             name="search">
                                 </div>
                                 <div>

@@ -8,7 +8,9 @@
         </div>
     @endif
     <div class="container">
-
+        <div>
+            <h3 style="padding-left: 15px">List Books</h3>
+        </div>
 
         @foreach($books as $book)
 
@@ -20,13 +22,18 @@
                                                           style="width:160px;height:180px" alt="{{asset('storage/'.$book->image)}}"></div>
                     <div class="panel-footer">{{$book->price}}</div>
                     <div>
-                        <a href="">
+                        <a href="{{route('pages.detailBook',$book->id)}}">
                             Xem chi tiết
                         </a>
                     </div>
                     <div>
-                        <a href="">
-                            Mua
+                        <p><span>View:</span>
+                            {{$book->view}}
+                        </p>
+                    </div>
+                    <div>
+                        <a href="{{route('cart.addToCart',$book->id)}}">
+                            Thêm vào giỏ
                         </a>
                     </div>
                    {{-- <div><a href="{{route('book.detail',$book->id)}}" class="snip1457"
@@ -39,7 +46,7 @@
                 </div>
             </div>
 
-
     @endforeach
+
 
 @endsection

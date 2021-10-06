@@ -8,5 +8,5 @@ interface BaseInterface
 {
     function index();
     function create();
-    function delete($id);
+
 }

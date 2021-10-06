@@ -52,10 +52,10 @@ class AuthorController extends Controller
     }
 
 
-    public function destroy($id)
+    public function delete($id)
     {
         $author=Author::findOrFail($id);
-        $author->destroy();
+        $author->delete();
         return redirect()->route('authors.index');
     }
 }

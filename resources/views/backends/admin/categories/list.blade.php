@@ -47,7 +47,7 @@
                                         <td>{{ $category->name }}</td>
                                         <td>
                                             <a href="{{route('categories.edit',$category->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                            <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            <a href="{{route('categories.delete',$category->id)}}" onclick="return confirm('are you sure')" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

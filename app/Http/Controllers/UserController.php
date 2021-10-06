@@ -39,7 +39,7 @@ class UserController extends Controller implements BaseInterface, UserInterface
 
     function create()
     {
-        return \view('backends.admin.users.add');
+        return \view('backends.admin.users.create');
     }
 
     function getPostOfUser($idUser)
@@ -94,6 +94,6 @@ class UserController extends Controller implements BaseInterface, UserInterface
         $user = User::findOrFail($id);
         $user->roles()->detach();
         $user->delete();
-        return redirect()->route('users.index');
+        return response()->json(['message','delete successfully']);
     }
 }

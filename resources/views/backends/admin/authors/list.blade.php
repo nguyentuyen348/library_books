@@ -47,7 +47,7 @@
                                         <td>{{ $author->name }}</td>
                                         <td>
                                             <a href="{{route('authors.edit',$author->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                            <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            <a href="{{route('authors.delete',$author->id)}}" onclick="return confirm('are you sure?')" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

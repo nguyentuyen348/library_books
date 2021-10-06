@@ -15,7 +15,11 @@ class Book extends Model
     function author(){
         return $this->belongsTo(Author::class,'author_id');
     }
-    function detail_book(){
+    function detail(){
         return $this->hasOne(Detail_book::class,'id');
+    }
+    public function borrow()
+    {
+        return $this->hasMany(Borrow::class);
     }
 }

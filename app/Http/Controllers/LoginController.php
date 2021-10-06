@@ -36,12 +36,13 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        session()->flush();
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         session()->flash('logout','logged out');
-        return redirect()->route('home.index');
+        return redirect()->route('admin.index');
     }
 }

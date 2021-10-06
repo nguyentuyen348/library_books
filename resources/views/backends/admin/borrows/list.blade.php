@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','list books')
+@section('title','list borrows')
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Danh sách sách</li>
+                        <li class="breadcrumb-item active">Danh sách phiếu mượn</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <a class="btn btn-success" href="{{ route('books.create') }}">Thêm mới</a>
+                                <a class="btn btn-success" href="{{ route('borrows.create') }}">Thêm mới</a>
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -35,43 +35,58 @@
                                 <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Tên</th>
+                                    <th>Tên người mượn</th>
+                                    <th>ID người mượn</th>
+                                    <th>Tên sách mượn</th>
                                     <th>Ảnh</th>
-                                    <th>Tác giả</th>
-                                    <th>Thể loại</th>
-                                    <th>Giá</th>
-                                    <th>Lượt xem</th>
+                                    <th>Số tiền đã thanh toán</th>
+                                    <th>Ngày mượn</th>
+                                    <th>Ngày trả</th>
+                                    <th>Trạng thái</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($books as $book)
+                                @foreach($borrows as $borrow)
 
                                     <tr>
-                                        <td>{{ $book->id }}</td>
-                                        <td>{{ $book->name }}</td>
+                                        <td>{{$borrow->id}}</td>
                                         <td>
-                                            <img style="width: 100px;height: 100px" src="{{asset('storage/'.$book->image)}}" alt="{{asset('storage/'.$book->image)}}">
+                                            @if($borrow->student)
+                                            {{$borrow->student->name}}
+                                                @endif
                                         </td>
-
                                         <td>
-                                            @if(isset($book->author))
-                                            {{$book->author->name}}
+                                            @if($borrow->student)
+                                                {{$borrow->student->id}}
                                             @endif
                                         </td>
-
                                         <td>
-                                            @if(isset($book->category))
-                                                {{$book->category->name}}
+
+                                            @if($borrow->book)
+                                                {{$borrow->book->name}}
                                             @endif
-                                        </td>
-                                        <td>{{$book->price}}</td>
-                                        <td>{{$book->view}}</td>
-                                        <td>
 
-                                            <a href="{{route('books.edit',$book->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                        </td>
+                                        <td>
+                                      @if($borrow->book)
+                                            <img style="width: 100px;height: 140px" src="{{asset('storage/'.$borrow->book->image)}}" alt="">
+
+                                           @endif
+                                        </td>
+                                        <td>
+                                            {{$borrow->price_total}}
+                                        </td>
+                                        <td>{{$borrow->date_borrow}}</td>
+                                        <td>{{$borrow->date_return}}</td>
+                                        <td>
+                                                @if($borrow->status)
+                                                {{$borrow->status->name}}
+                                                @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{route('borrows.edit',$borrow->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                             <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                            <a class="btn btn-success" href="{{route('books.detail',$book->id  )}}">detail</a>
 
                                         </td>
                                     </tr>
@@ -98,3 +113,4 @@
     <!-- /.content -->
 
 @endsection
+
